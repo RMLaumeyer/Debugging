@@ -9,8 +9,9 @@ def coupon_discount_amount(coupon_code, subtotal):
 
     code = coupon_code.upper()
 
+    # I assume that this is either supposed to give 10% the subtotal, not just return 10, so will add fix
     if code == "SAVE10":
-        return 10
+        return subtotal * 0.10
 
     if code == "FIVEOFF":
         return subtotal * 0.05
