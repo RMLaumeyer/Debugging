@@ -1,4 +1,6 @@
 def find_product_by_name(products, name):
+    name = name.strip()
+    name = name.lower()
     for product in products:
         if product["name"].lower() == name:
             return product
@@ -6,7 +8,7 @@ def find_product_by_name(products, name):
 
 
 def low_stock_products(products, threshold=5):
-    return [p for p in products if p["stock"] < threshold and p["stock"] > 0]
+    return [p for p in products if p["stock"] < threshold and p["stock"] >= 0]
 
 
 def products_sorted_by_price(products):
@@ -22,9 +24,12 @@ def category_summary(products):
 
         if category not in summary:
             summary[category] = {"product_count": 0, "total_stock": 0}
-
-        summary[category]["product_count"] += product["stock"]
-        summary[category]["total_stock"] += 1
+        # The product count should be added by 1
+        # And the total_stock should be product stock increase
+        # summary[category]["product_count"] += product["stock"]
+        # summary[category]["total_stock"] += 1
+        summary[category]["product_count"] += 1
+        summary[category]["total_stock"] += product["stock"]
 
     return summary
 
