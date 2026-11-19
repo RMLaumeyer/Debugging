@@ -8,9 +8,9 @@ def find_product_by_id(products, product_id):
     if not products:
         print("No Products Passed")
         return None
-    product_id = product_id.strip()
+    product_id = product_id.strip().lower()
     for product in products:
-        if product["id"] == product_id:
+        if product["id"].lower() == product_id:
             return product
     print("Product Not Found")
     return None
@@ -22,9 +22,9 @@ def find_customer_by_id(customers, customer_id):
     if not customers:
         print("No Customers Passed")
         return None
-    customer_id = customer_id.strip()
+    customer_id = customer_id.strip().lower()
     for customer in customers:
-        if customer["id"] == customer_id:
+        if customer["id"].lower() == customer_id:
             return customer
     print("Customer Not Found")
     return None
