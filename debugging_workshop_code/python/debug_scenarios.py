@@ -1,6 +1,6 @@
 from data import get_products, get_customers, get_orders, get_tax_rates
 from orders import process_order, calculate_subtotal
-from reports import find_product_by_name, low_stock_products, category_summary
+from reports import find_product_by_name, low_stock_products, category_summary, products_sorted_by_price
 
 
 def check(condition, message):
@@ -17,6 +17,9 @@ def main():
     check(find_product_by_name(products, "  keyboard ") is not None, "Search should trim and ignore case")
     check(find_product_by_name(products, "MOUSE") is not None, "Search should ignore case")
 
+    # Check Products storted by Price
+    check(products_sorted_by_price(products) == sorted(products, key=lambda p: p["price"]), "Products should be sorted by price")
+    
     low_names = [p["name"] for p in low_stock_products(products, 5)]
     check("Pen Pack" in low_names, "Low-stock report should include out-of-stock products")
 

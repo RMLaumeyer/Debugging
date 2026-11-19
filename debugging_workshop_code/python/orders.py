@@ -11,15 +11,15 @@ def calculate_subtotal(order, products):
         if product is None:
             continue
 
-        subtotal += product["price"] + item["quantity"]
+        subtotal += product["price"] * item["quantity"]
 
-    return round(subtotal, 2)
+    return subtotal
 
 
 def calculate_tax(customer, discounted_subtotal, tax_rates):
-    state = customer.get("state", "NJ")
-    rate = tax_rates.get(state, 0.07)
-    return round(discounted_subtotal * rate, 2)
+    state = customer.get("state", "NJ") 
+    rate = tax_rates.get(state, 0.0) 
+    return discounted_subtotal * rate
 
 
 def calculate_shipping(discounted_subtotal):
