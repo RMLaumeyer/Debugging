@@ -1,18 +1,32 @@
 def is_non_empty_string(value):
-    return isinstance(value, str) and len(value) > 0
+    return (
+        isinstance(value, str) and len(value.strip()) > 0
+    )  # Added strip to end of value
 
 
 def find_product_by_id(products, product_id):
+    if not products:
+        print("No Products Passed")
+        return None
+    product_id = product_id.strip()
     for product in products:
         if product["id"] == product_id:
             return product
+    print("Product Not Found")
     return None
 
 
 def find_customer_by_id(customers, customer_id):
+    # Added a strip to the id
+    # Added a check for customers
+    if not customers:
+        print("No Customers Passed")
+        return None
+    customer_id = customer_id.strip()
     for customer in customers:
         if customer["id"] == customer_id:
             return customer
+    print("Customer Not Found")
     return None
 
 
