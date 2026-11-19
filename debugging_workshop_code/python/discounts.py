@@ -19,11 +19,11 @@ def coupon_discount_amount(coupon_code, subtotal):
 
 
 def bulk_discount_amount(items, products):
-    discount = 0
+    discount = 0 
 
     for item in items:
         product = next((p for p in products if p["id"] == item["product_id"]), None)
-        if product is None:
+        if product is None: 
             continue
 
         if item["quantity"] > BULK_DISCOUNT_THRESHOLD:
