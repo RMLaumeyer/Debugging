@@ -17,8 +17,8 @@ def calculate_subtotal(order, products):
 
 
 def calculate_tax(customer, discounted_subtotal, tax_rates):
-    state = customer.get("state", "NJ")
-    rate = tax_rates.get(state, 0.07)
+    state = customer.get("state", "NJ") # returns NJ if no state is found, which could be wrong
+    rate = tax_rates.get(state, 0) # returns 0.07 for other states but should be 0% for the exercise
     return round(discounted_subtotal * rate, 2)
 
 
