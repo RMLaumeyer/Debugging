@@ -26,25 +26,31 @@ def bulk_discount_amount(items, products):
         if product is None:
             continue
 
-        if item["quantity"] > BULK_DISCOUNT_THRESHOLD:
-            line_total = product["price"] * item["quantity"] 
+        if item["quantity"] >= BULK_DISCOUNT_THRESHOLD:
+            line_total = product["price"] * item["quantity"]
             discount += line_total * BULK_DISCOUNT_RATE
 
     return discount
 
 
 def loyalty_discount_amount(customer, subtotal_after_coupon):
-    return subtotal_after_coupon * LOYALTY_RATE
+    if "loyalty" in customer and customer.loyalty:
+        return subtotal_after_coupon * LOYALTY_RATE
+    else:
+        return 0
+    
 
 
 def apply_discounts(order, customer, products, subtotal):
     coupon_discount = coupon_discount_amount(order.get("coupon"), subtotal)
     subtotal_after_coupon = subtotal - coupon_discount
-
     loyalty_discount = loyalty_discount_amount(customer, subtotal)
     bulk_discount = bulk_discount_amount(order.get("items", []), products)
 
     discounted_subtotal = subtotal_after_coupon - loyalty_discount - bulk_discount
+    
+    if discounted_subtotal < 0: 
+        discounted_subtotal = 0
 
     return {
         "coupon_discount": round(coupon_discount, 2),
